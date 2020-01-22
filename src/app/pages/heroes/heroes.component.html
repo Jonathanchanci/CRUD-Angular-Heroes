@@ -1,0 +1,60 @@
+
+<h1>Listado de Héroes</h1>
+<hr>
+<div class="row text-right">
+    <div class="col">
+        <div class="btn btn-primary"
+             routerLink="/heroe/nuevo"
+        >Agregar</div>
+    </div>
+</div>
+
+<div class="table-responsive mt-3 animated fadeIn" *ngIf="!cargando && heroesList.length !== 0">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Poder</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Gestión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let heroe of heroesList; let i = index">
+            <th scope="row">{{ i + 1}}</th>
+            <td>{{heroe.nombre}}</td>
+            <td>{{heroe.poder}}</td>
+            <td>
+              <label for="" class="badge badge-success" *ngIf="heroe.vivo">Vivo</label>
+              <label for="" class="badge badge-danger" *ngIf="!heroe.vivo">Muerto</label>
+            </td>
+            <td>
+              <div class="btn btn-info mr-1"
+                    [routerLink]="['/heroe', heroe.id]">Editar</div>
+              <div class="btn btn-danger mr-1"
+                    (click)="borrarHeroe( heroe, i)">Eliminar</div>
+            </td>
+          </tr>         
+        </tbody>
+      </table>
+</div>
+
+<div class="alert alert-info text-center animated fadeIn mt-3" *ngIf="cargando">
+    <h4 class="alert-header">Cargando</h4>
+    <small>Espere por favor</small>
+    <div class="text-center mt-3">
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">          
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-warning text-center animated fadeIn mt-3" *ngIf="!cargando && heroesList.length === 0">
+    <h4 class="alert-header">Atención</h4>
+    <small>No hay registros</small>
+    <div class="text-center mt-3">
+        <div class="spinner-grow" style="width: 5rem; height: 5rem;" role="status">          
+        </div>        
+    </div>
+    
+</div>
